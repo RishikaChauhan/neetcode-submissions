@@ -1,0 +1,37 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        # for i in range(len(s), 0,-1):
+        #     for j in range(0, len(s)-i+1):
+        #         ss = s[j:j+i]
+        #         if ss==ss[::-1]:
+        #             return ss
+        # return ""
+        
+        
+        
+        # res, resLen = "", 0
+
+        # for i in range(len(s)):
+        #     for j in range(i, len(s)):
+        #         l, r = i, j
+        #         while l < r and s[l] == s[r]:
+        #             l += 1
+        #             r -= 1
+
+        #         if l >= r and resLen < (j - i + 1):
+        #             res = s[i : j + 1]
+        #             resLen = j - i + 1
+        # return res
+        
+        res = ""
+
+        def expand(l, r):
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                l -= 1
+                r += 1
+            return s[l+1:r]
+
+        for i in range(len(s)):
+            res = max(res, expand(i, i), expand(i, i+1), key=len)
+
+        return res
